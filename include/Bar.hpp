@@ -1,10 +1,10 @@
-/* '##::::::::'#######:::::'###::::'########::'####:'##::: ##::'######:::'########:::::'###::::'########:: */
-/*  ##:::::::'##.... ##:::'## ##::: ##.... ##:. ##:: ###:: ##:'##... ##:: ##.... ##:::'## ##::: ##.... ##: */
-/*  ##::::::: ##:::: ##::'##:. ##:: ##:::: ##:: ##:: ####: ##: ##:::..::: ##:::: ##::'##:. ##:: ##:::: ##: */
-/*  ##::::::: ##:::: ##:'##:::. ##: ##:::: ##:: ##:: ## ## ##: ##::'####: ########::'##:::. ##: ########:: */
+/* "##::::::::"#######:::::"###::::"########::"####:"##::: ##::"######:::"########:::::"###::::"########:: */
+/*  ##:::::::"##.... ##:::"## ##::: ##.... ##:. ##:: ###:: ##:"##... ##:: ##.... ##:::"## ##::: ##.... ##: */
+/*  ##::::::: ##:::: ##::"##:. ##:: ##:::: ##:: ##:: ####: ##: ##:::..::: ##:::: ##::"##:. ##:: ##:::: ##: */
+/*  ##::::::: ##:::: ##:"##:::. ##: ##:::: ##:: ##:: ## ## ##: ##::"####: ########::"##:::. ##: ########:: */
 /*  ##::::::: ##:::: ##: #########: ##:::: ##:: ##:: ##. ####: ##::: ##:: ##.... ##: #########: ##.. ##::: */
 /*  ##::::::: ##:::: ##: ##.... ##: ##:::: ##:: ##:: ##:. ###: ##::: ##:: ##:::: ##: ##.... ##: ##::. ##:: */
-/*  ########:. #######:: ##:::: ##: ########::'####: ##::. ##:. ######::: ########:: ##:::: ##: ##:::. ##: */
+/*  ########:. #######:: ##:::: ##: ########::"####: ##::. ##:. ######::: ########:: ##:::: ##: ##:::. ##: */
 /* ........:::.......:::..:::::..::........:::....::..::::..:::......::::........:::..:::::..::..:::::..:: */
 
 #include <ostream>
@@ -21,36 +21,38 @@ namespace loadingBar {
 
       // Constructors
       bar();
-      bar(char ld, char fill, char remain, Modifier clr);
-      bar(char ld, int height, int width, Modifier clr); 
-      bar(char ld, int width, Modifier clr);
-      bar(char ld, char fill, int width, Modifier clr);
-      bar(char ld, char fill, char remain, int width, Modifier clr);
-      bar(char ld, char fill, char remain, int width, int height, Modifier clr);
-      bar(char ld, char width, char height, char lead, char fill, char remain, Modifier fg_clr, Modifier bg_clr, int prog);
+      bar(std::string ld, std::string fill, std::string remain, Modifier clr);
+      bar(std::string ld, int height, int width, Modifier clr); 
+      bar(std::string ld, int width, Modifier clr);
+      bar(std::string ld, std::string fill, int width, Modifier clr);
+      bar(std::string ld, std::string fill, std::string remain, int width, Modifier clr);
+      bar(std::string ld, std::string fill, std::string remain, int width, int height, Modifier clr);
+      bar(std::string ld, std::string width, std::string height, std::string lead, std::string fill, std::string remain, Modifier fg_clr, Modifier bg_clr, int prog);
 
       // Getters
       int get_width();
       int get_height();
       int get_progress();
-      char get_lead();
-      char get_fill();
-      char get_remain();
+      std::string get_lead();
+      std::string get_fill();
+      std::string get_remain();
       Modifier get_fg_color();
       Modifier get_bg_color();
       void print_bar();
       bar get_bar();
+      float get_percent();
 
       void flush();
       bool is_complete();
+      bool toggle_percentage();
 
       // Setters
       bar set_width(int w);
       bar set_height(int h);
       bar set_progress(int p);
-      bar set_lead(char l);
-      bar set_fill(char f);
-      bar set_remain(char r);
+      bar set_lead(std::string l);
+      bar set_fill(std::string f);
+      bar set_remain(std::string r);
       bar set_fg_color(Modifier fg);
       bar set_bg_color(Modifier bg);
 
@@ -61,30 +63,32 @@ namespace loadingBar {
       int width;
       int height;
       int progress;
-      char lead;
-      char fill;
-      char remain;
+
+      // Settings 
+      std::string lead;
+      std::string fill;
+      std::string remain;
       Modifier fgcolor;
       Modifier bgcolor;
+      bool isPercent = true;
+      std::string Complete_Message = "";
+      std::string CurrMessage = "";
   };
 
-  inline bar::bar() : width(50), height(1), lead('>'), fill('#'), remain('-'), fgcolor(Color::FG_DEFAULT), bgcolor(Color::BG_DEFAULT), progress(0){
+  inline bar::bar() : width(50), height(1), lead(">"), fill("#"), remain("-"), fgcolor(Color::FG_DEFAULT), bgcolor(Color::BG_DEFAULT), progress(0){
   }
 
 // Constructors ------------------------------------------------------------------------------------------------
-inline bar::bar(char ld, char fill, char remain, Modifier fg_clr) : width(50), height(1), lead(ld), fill(fill), remain(remain), fgcolor(fg_clr), bgcolor(Color::BG_DEFAULT), progress(0){}
+inline bar::bar(std::string ld, std::string fill, std::string remain, Modifier fg_clr) : width(50), height(1), lead(ld), fill(fill), remain(remain), fgcolor(fg_clr), bgcolor(Color::BG_DEFAULT), progress(0){}
 
-inline bar::bar(char ld, int height, int width, Modifier clr) : width(width), height(height), lead(ld), fill('#'), remain('-'), fgcolor(Color::FG_DEFAULT), bgcolor(Color::BG_DEFAULT), progress(0){}
+inline bar::bar(std::string ld, int height, int width, Modifier clr) : width(width), height(height), lead(ld), fill("#"), remain("-"), fgcolor(Color::FG_DEFAULT), bgcolor(Color::BG_DEFAULT), progress(0){}
 
-inline bar::bar(char ld, int width, Modifier fg_clr) : width(width), height(1), lead(ld), fill('#'), remain('-'), fgcolor(fg_clr), bgcolor(Color::BG_DEFAULT), progress(0){}
+inline bar::bar(std::string ld, int width, Modifier fg_clr) : width(width), height(1), lead(ld), fill("#"), remain("-"), fgcolor(fg_clr), bgcolor(Color::BG_DEFAULT), progress(0){}
 
-inline bar::bar(char ld, char fill, int width, Modifier clr) : width(width), height(1), lead(ld), fill(fill), remain('-'), fgcolor(Color::FG_DEFAULT), bgcolor(Color::BG_DEFAULT), progress(0){}
+inline bar::bar(std::string ld, std::string fill, int width, Modifier clr) : width(width), height(1), lead(ld), fill(fill), remain("-"), fgcolor(Color::FG_DEFAULT), bgcolor(Color::BG_DEFAULT), progress(0){}
 
-inline bar::bar(char ld, char fill, char remain, int width, Modifier fg_clr) : width(width), height(1), lead(ld), fill(fill), remain(remain), fgcolor(fg_clr), bgcolor(Color::BG_DEFAULT), progress(0){}
+inline bar::bar(std::string ld, std::string fill, std::string remain, int width, Modifier fg_clr) : width(width), height(1), lead(ld), fill(fill), remain(remain), fgcolor(fg_clr), bgcolor(Color::BG_DEFAULT), progress(0){}
 
-inline bar::bar(char ld, char fill, char remain, int width, int height, Modifier fg_clr) : width(width), height(height), lead(ld), fill(fill), remain('-'), fgcolor(fg_clr), bgcolor(Color::BG_DEFAULT), progress(0){}
-
-inline bar::bar(char ld, char width, char height, char lead, char fill, char remain, Modifier fg_clr, Modifier bg_clr, int prog = 0) : width(width), height(height), lead(ld), fill(fill), remain(remain), fgcolor(fg_clr), bgcolor(bg_clr), progress(prog){}
 
 // EO Constructors ---------------------------------------------------------------------------------------------
 
@@ -101,15 +105,15 @@ inline int bar::get_progress(){
   return progress;
 }
 
-inline char bar::get_lead(){
+inline std::string bar::get_lead(){
   return lead;
 }
 
-inline char bar::get_fill(){
+inline std::string bar::get_fill(){
   return fill;
 }
 
-inline char bar::get_remain(){
+inline std::string bar::get_remain(){
   return remain;
 }
 
@@ -130,6 +134,9 @@ inline void bar::print_bar(){
   for(int i = progress; i < width; i++){
     std::cout << remain;
   }
+  if(isPercent){
+    std::cout << ' ' << this->get_percent() << "%";
+  }
   std::cout << bgcolor; 
   std::cout.flush();
 }
@@ -138,15 +145,28 @@ inline bar bar::get_bar(){
   return *this;
 }
 
-
+inline float bar::get_percent(){
+  return (float)(static_cast<float>(progress) / static_cast<float>(width)) * 100.00;
+}
 
 // EO Getters --------------------------------------------------------------------------------------------------
 //
 inline bool bar::is_complete(){
   return width == progress;
 }
+
 inline void bar::flush(){
   std::cout << "\033[2K" << "\033[0G";
+}
+
+inline bool bar::toggle_percentage(){
+  if(isPercent){
+    isPercent = false;
+  }
+  else {
+    isPercent = true;
+  }
+  return isPercent;
 }
 
 // Setters -----------------------------------------------------------------------------------------------------
@@ -165,17 +185,17 @@ inline bar bar::set_progress(int p){
   return *this;
 }
 
-inline bar bar::set_lead(char l){
+inline bar bar::set_lead(std::string l){
   lead = l;
   return *this;
 }
 
-inline bar bar::set_fill(char f){
+inline bar bar::set_fill(std::string f){
   fill = f;
   return *this;
 }
 
-inline bar bar::set_remain(char r){
+inline bar bar::set_remain(std::string r){
   remain = r;
   return *this;
 }
