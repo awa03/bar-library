@@ -1,6 +1,6 @@
 #include <iostream>
 #include <ostream>
-#include "Bar.hpp"
+#include "../Bar.hpp"
 #include <chrono>
 #include <thread>
 using namespace loadingBar;
