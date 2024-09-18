@@ -8,12 +8,12 @@ using namespace std;
 
 int main(){
   bar b;
-  b.set_fg_color(Color::FG_BLUE);
+  b.set_fg_color(Color::FG_BLACK);
+  b.set_bg_color(Color::BG_WHITE);
   b.set_width(100);
   b.set_fill("█");
-  b.set_lead("█");
+  b.set_lead_animation({animation::frame("█")});
   b.set_remain("-");
-  b.set_bg_color(Color::BG_DEFAULT);
   while(!b.is_complete()){
         // Print the initial line
         b.print_bar();

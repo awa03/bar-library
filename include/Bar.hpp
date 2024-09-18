@@ -7,12 +7,14 @@
 /*  ########:. #######:: ##:::: ##: ########::"####: ##::. ##:. ######::: ########:: ##:::: ##: ##:::. ##: */
 /* ........:::.......:::..:::::..::........:::....::..::::..:::......::::........:::..:::::..::..:::::..:: */
 
-#include <ostream>
 #ifndef BAR_HPP
 #define BAR_HPP
 
+#include <ostream>
 #include <iostream>
+#include "Animation.hpp"
 #include "Color.hpp"
+
 using namespace loadingBar::Color;
 
 namespace loadingBar {
@@ -21,19 +23,11 @@ namespace loadingBar {
 
       // Constructors
       bar();
-      bar(std::string ld, std::string fill, std::string remain, Modifier clr);
-      bar(std::string ld, int height, int width, Modifier clr); 
-      bar(std::string ld, int width, Modifier clr);
-      bar(std::string ld, std::string fill, int width, Modifier clr);
-      bar(std::string ld, std::string fill, std::string remain, int width, Modifier clr);
-      bar(std::string ld, std::string fill, std::string remain, int width, int height, Modifier clr);
-      bar(std::string ld, std::string width, std::string height, std::string lead, std::string fill, std::string remain, Modifier fg_clr, Modifier bg_clr, int prog);
 
       // Getters
       int get_width();
-      int get_height();
       int get_progress();
-      std::string get_lead();
+      animation get_lead_animation();
       std::string get_fill();
       std::string get_remain();
       Modifier get_fg_color();
@@ -48,24 +42,26 @@ namespace loadingBar {
 
       // Setters
       bar set_width(int w);
-      bar set_height(int h);
-      bar set_progress(int p);
-      bar set_lead(std::string l);
+      bar set_progress(int p); 
+      bar set_lead_animation(animation a); 
       bar set_fill(std::string f);
       bar set_remain(std::string r);
       bar set_fg_color(Modifier fg);
       bar set_bg_color(Modifier bg);
+
+      void set_animation_frame(int index);
+      void next_lead_frame();
+
+  // TODO Add Frame Option
 
       bar add_progress();
       bar remove_progress();
 
     private:    
       int width;
-      int height;
       int progress;
 
       // Settings 
-      std::string lead;
       std::string fill;
       std::string remain;
       Modifier fgcolor;
@@ -73,22 +69,14 @@ namespace loadingBar {
       bool isPercent = true;
       std::string Complete_Message = "";
       std::string CurrMessage = "";
+      animation lead_frames;
   };
 
-  inline bar::bar() : width(50), height(1), lead(">"), fill("#"), remain("-"), fgcolor(Color::FG_DEFAULT), bgcolor(Color::BG_DEFAULT), progress(0){
+  inline bar::bar() : width(50), lead_frames(">"), fill("#"), remain("-"), fgcolor(Color::FG_DEFAULT), bgcolor(Color::BG_DEFAULT), progress(0){
   }
 
 // Constructors ------------------------------------------------------------------------------------------------
-inline bar::bar(std::string ld, std::string fill, std::string remain, Modifier fg_clr) : width(50), height(1), lead(ld), fill(fill), remain(remain), fgcolor(fg_clr), bgcolor(Color::BG_DEFAULT), progress(0){}
-
-inline bar::bar(std::string ld, int height, int width, Modifier clr) : width(width), height(height), lead(ld), fill("#"), remain("-"), fgcolor(Color::FG_DEFAULT), bgcolor(Color::BG_DEFAULT), progress(0){}
-
-inline bar::bar(std::string ld, int width, Modifier fg_clr) : width(width), height(1), lead(ld), fill("#"), remain("-"), fgcolor(fg_clr), bgcolor(Color::BG_DEFAULT), progress(0){}
-
-inline bar::bar(std::string ld, std::string fill, int width, Modifier clr) : width(width), height(1), lead(ld), fill(fill), remain("-"), fgcolor(Color::FG_DEFAULT), bgcolor(Color::BG_DEFAULT), progress(0){}
-
-inline bar::bar(std::string ld, std::string fill, std::string remain, int width, Modifier fg_clr) : width(width), height(1), lead(ld), fill(fill), remain(remain), fgcolor(fg_clr), bgcolor(Color::BG_DEFAULT), progress(0){}
-
+// TODO
 
 // EO Constructors ---------------------------------------------------------------------------------------------
 
@@ -97,16 +85,12 @@ inline int bar::get_width(){
   return width;
 }
 
-inline int bar::get_height(){
-  return height;
-}
-
 inline int bar::get_progress(){
   return progress;
 }
 
-inline std::string bar::get_lead(){
-  return lead;
+inline animation bar::get_lead_animation(){
+  return lead_frames;
 }
 
 inline std::string bar::get_fill(){
@@ -128,9 +112,9 @@ inline Modifier bar::get_bg_color(){
 inline void bar::print_bar(){
   std::cout << fgcolor;
   for(int i = 0; i < progress; i++){
-    std::cout << fill;
+      std::cout << fill;
   }
-  std::cout << lead;
+  std::cout << lead_frames.get_curr_frame_icon();
   for(int i = progress; i < width; i++){
     std::cout << remain;
   }
@@ -175,18 +159,13 @@ inline bar bar::set_width(int w){
   return *this;
 }
 
-inline bar bar::set_height(int h){
-  height = h;
-  return *this;
-}
-
 inline bar bar::set_progress(int p){
   progress = p;
   return *this;
 }
 
-inline bar bar::set_lead(std::string l){
-  lead = l;
+inline bar bar::set_lead_animation(animation a){
+  lead_frames = a;
   return *this;
 }
 
@@ -210,6 +189,13 @@ inline bar bar::set_bg_color(Modifier bg){
   return *this;
 }
 
+inline void bar::set_animation_frame(int index){
+  lead_frames.set_curr_frame(index); 
+}
+
+inline void bar::next_lead_frame(){
+  lead_frames.next_frame();
+}
 
 inline bar bar::add_progress(){
   if (progress < width) progress++;
