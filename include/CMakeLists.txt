@@ -10,9 +10,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 # Specify the source files
 set(SOURCES
     main.cpp
-    Bar.hpp
-    Color.hpp
-    Animation.hpp
+    include/Bar.hpp
+    include/Color.hpp
+    include/Animation.hpp
+    include/Symbols.hpp
 )
 
 # Add the executable

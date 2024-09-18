@@ -145,14 +145,17 @@ CMakeFiles/executable.dir/main.cpp.o: \
  /usr/include/c++/13/bits/basic_ios.tcc \
  /usr/include/c++/13/bits/ostream.tcc /usr/include/c++/13/istream \
  /usr/include/c++/13/bits/istream.tcc \
- /home/aiden-allen/Desktop/LoadingBar/bar-library/include/Animation.hpp \
+ /home/aiden-allen/Desktop/LoadingBar/bar-library/include/include/Animation.hpp \
  /usr/include/c++/13/vector /usr/include/c++/13/bits/stl_uninitialized.h \
  /usr/include/c++/13/bits/stl_vector.h \
  /usr/include/c++/13/bits/stl_bvector.h \
  /usr/include/c++/13/bits/vector.tcc /usr/include/c++/13/cstring \
  /usr/include/string.h /usr/include/strings.h \
- /home/aiden-allen/Desktop/LoadingBar/bar-library/include/Bar.hpp \
- /home/aiden-allen/Desktop/LoadingBar/bar-library/include/Color.hpp \
+ /home/aiden-allen/Desktop/LoadingBar/bar-library/include/include/Bar.hpp \
+ /home/aiden-allen/Desktop/LoadingBar/bar-library/include/include/Animation.hpp \
+ /home/aiden-allen/Desktop/LoadingBar/bar-library/include/include/Color.hpp \
+ /home/aiden-allen/Desktop/LoadingBar/bar-library/include/include/Symbols.hpp \
+ /home/aiden-allen/Desktop/LoadingBar/bar-library/include/include/Symbols.hpp \
  /usr/include/c++/13/chrono /usr/include/c++/13/bits/chrono.h \
  /usr/include/c++/13/ratio /usr/include/c++/13/cstdint \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h /usr/include/stdint.h \
