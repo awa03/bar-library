@@ -1,0 +1,3 @@
+/home/aiden-allen/Desktop/LoadingBar/bar-library/library/CMakeFiles/executable.dir
+/home/aiden-allen/Desktop/LoadingBar/bar-library/library/CMakeFiles/edit_cache.dir
+/home/aiden-allen/Desktop/LoadingBar/bar-library/library/CMakeFiles/rebuild_cache.dir
