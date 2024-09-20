@@ -13,7 +13,7 @@ int main(){
   b.set_fill(symbol::bar);
   b.set_remain(symbol::fade_bar);
   b.set_fg_color(Color::FG_RED);
-  b.set_lead_animation(premade::dice);
+  b.set_lead_animation(premade::none);
 
   while(!b.is_complete()){
       // Simulate some processing delay

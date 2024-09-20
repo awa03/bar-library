@@ -27,7 +27,7 @@ namespace loadingBar {
     static std::string flower = "✿";
     static std::string bold_equals = "═"; 
     static std::string bold_tip = "┣";
-    static std::string smile = "☺︎";
+    static std::string smile = "☺︎ ";
     static std::string sun = "☀";
     static std::string filled_triangle = "▲";
     static std::string yin_yang = "☯";
