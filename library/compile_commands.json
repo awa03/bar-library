@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/home/aiden-allen/Desktop/LoadingBar/bar-library/library",
+  "command": "/usr/bin/c++   -std=gnu++17 -o CMakeFiles/executable.dir/main.cpp.o -c /home/aiden-allen/Desktop/LoadingBar/bar-library/library/main.cpp",
+  "file": "/home/aiden-allen/Desktop/LoadingBar/bar-library/library/main.cpp",
+  "output": "CMakeFiles/executable.dir/main.cpp.o"
+}
+]

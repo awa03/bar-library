@@ -5,7 +5,6 @@
 #include <chrono>
 #include <thread>
 
-using namespace std;
 using namespace loadingBar;
 
 int main(){
